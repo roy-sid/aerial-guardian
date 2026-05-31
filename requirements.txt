@@ -1,0 +1,7 @@
+ultralytics
+sahi
+supervision
+opencv-python
+Pillow
+numpy
+gdown

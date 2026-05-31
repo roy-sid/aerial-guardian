@@ -1,0 +1,15 @@
+path: /content/drive/MyDrive/dataset
+
+train:
+  - images/uav0000086_00000_v
+  - images/uav0000117_02622_v
+  - images/uav0000137_00458_v
+  - images/uav0000182_00000_v
+  - images/uav0000268_05773_v
+  - images/uav0000339_00001_v
+val:
+  - images/uav0000305_00000_v
+
+
+nc: 2
+names: ['pedestrian' , 'people']
