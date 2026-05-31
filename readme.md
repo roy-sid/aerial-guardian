@@ -32,12 +32,12 @@ The final pipeline combines:
 .
 ├── preprocess.py
 ├── data.yaml
-├── botlab_assignment.ipynb
-├── botlab_sahi.ipynb
+├── botlab_assignment.py
+├── botlab_sahi.py
 ├── weights/
 │   └── best.pt
 ├── report/
-│   └── Aerial_Guardian_Report.pdf
+│   └── aerial_guardian_Report.pdf
 └── sample_output/
 ```
 
@@ -45,8 +45,8 @@ The final pipeline combines:
 |------|-------------|
 | `preprocess.py` | Converts VisDrone MOT annotations into YOLOv8 format |
 | `data.yaml` | YOLO dataset configuration |
-| `botlab_assignment.ipynb` | Training and evaluation notebook |
-| `botlab_sahi.ipynb` | Detection, tracking, SAHI, and CMC pipeline |
+| `botlab_assignment.py` | Training and evaluation notebook |
+| `botlab_sahi.py` | Detection, tracking, SAHI, and CMC pipeline |
 | `weights/best.pt` | Fine-tuned YOLOv8n model weights |
 
 ---
@@ -76,11 +76,18 @@ pip install gdown
 
 ---
 
-## Usage
+## Pretrained Weights
+
+The trained model weights are included in:
+
+```text
+weights/best.pt
+```
+---
 
 ### Training
 
-Open and run `botlab_assignment.ipynb`.
+Open and run `botlab_assignment.py`.
 
 | Parameter | Value |
 |-----------|-------|
@@ -92,7 +99,7 @@ Open and run `botlab_assignment.ipynb`.
 
 ### Detection and Tracking
 
-Open and run `botlab_sahi.ipynb`.
+Open and run `botlab_sahi.py`.
 
 ---
 
@@ -117,12 +124,34 @@ Open and run `botlab_sahi.ipynb`.
 ### Output Videos
 
 [Download Tracking Video ](sample_output/tracking_result.mp4)
+
+
+
+### Note
+
+> GitHub may not preview large video files directly. If preview is unavailable, download the video from the sample_output folder and click **View Raw**.
+---
+## Key Modifications
+
+Compared to a standard YOLOv8 + ByteTrack pipeline, the following adaptations were made for the drone scenario:
+
+- Fine-tuned YOLOv8n on VisDrone MOT person classes.
+- Integrated SAHI sliced inference to improve small-object detection.
+- Added Camera Motion Compensation (CMC) using optical flow to reduce tracking instability caused by drone movement.
+- Added trajectory visualization for tracked targets.
+- Maintained a lightweight deployment footprint (6.2 MB model size).
+---
+
+### Engineering Trade-off
+
+SAHI significantly improved detection of small distant pedestrians, but increased inference time. The final solution prioritizes detection quality while maintaining a lightweight model size of 6.2 MB suitable for edge deployment scenarios.
+
 ---
 
 ## Report
 
 Detailed implementation details, design decisions, experiments, and discussion:
-report/Aerial_Guardian_Report.pdf
+[View Report](report/aerial_guardian_Report.pdf)
 
 ---
 
