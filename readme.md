@@ -1,23 +1,28 @@
-# The Aerial Guardian - Drone-Based Multi-Person Detection and Tracking
+# 🛸 The Aerial Guardian
+### Drone-Based Multi-Person Detection and Tracking
 
-**Author:** Siddhant Roy
+**Author:** Siddhant Roy  
 **Dataset:** VisDrone 2019 MOT Validation Set (Task 4)
+
+---
 
 ## Overview
 
-This project implements a lightweight drone-based multi-person detection and tracking pipeline. The solution is designed to address common challenges in aerial surveillance, including:
+A lightweight drone-based multi-person detection and tracking pipeline designed to address common challenges in aerial surveillance:
 
-* Small person sizes in high-altitude drone footage
-* Camera motion caused by drone movement
-* Maintaining consistent tracking IDs across frames
-* Lightweight deployment constraints (<300 MB)
+- **Small person sizes** in high-altitude drone footage
+- **Camera motion** caused by drone movement
+- **Consistent tracking IDs** across frames
+- **Lightweight deployment** constraints (<300 MB)
+
+### Pipeline
+Frames → YOLOv8n → SAHI → Camera Motion Compensation → ByteTrack → Tracked Output Video
 
 The final pipeline combines:
-
-* YOLOv8n for person detection
-* SAHI for small-object detection through sliced inference
-* ByteTrack for multi-object tracking
-* Camera Motion Compensation (CMC) using optical flow
+- [YOLOv8n](https://github.com/ultralytics/ultralytics) for person detection
+- [SAHI](https://github.com/obss/sahi) for small-object detection through sliced inference
+- [ByteTrack](https://github.com/ifzhang/ByteTrack) for multi-object tracking
+- Camera Motion Compensation (CMC) using optical flow
 
 ---
 
@@ -36,28 +41,25 @@ The final pipeline combines:
 └── sample_output/
 ```
 
-### File Descriptions
-
-* **preprocess.py** - Converts VisDrone MOT annotations into YOLOv8 format.
-* **data.yaml** - YOLO dataset configuration.
-* **botlab_assignment.ipynb** - Training and evaluation notebook.
-* **botlab_sahi.ipynb** - Detection, tracking, SAHI, and camera motion compensation pipeline.
-* **best.pt** - Fine-tuned YOLOv8n model weights.
+| File | Description |
+|------|-------------|
+| `preprocess.py` | Converts VisDrone MOT annotations into YOLOv8 format |
+| `data.yaml` | YOLO dataset configuration |
+| `botlab_assignment.ipynb` | Training and evaluation notebook |
+| `botlab_sahi.ipynb` | Detection, tracking, SAHI, and CMC pipeline |
+| `weights/best.pt` | Fine-tuned YOLOv8n model weights |
 
 ---
 
 ## Dataset
 
-This project uses the VisDrone 2019 MOT Validation Set.
+This project uses the [VisDrone 2019 MOT Validation Set](https://github.com/VisDrone/VisDrone-Dataset).
 
-Dataset:
-https://github.com/VisDrone/VisDrone-Dataset
+After downloading:
 
-After downloading the dataset:
-
-1. Place the dataset locally.
-2. Run `preprocess.py` to generate YOLO labels.
-3. Update `data.yaml` paths if required.
+1. Place the dataset locally
+2. Run `preprocess.py` to generate YOLO labels
+3. Update `data.yaml` paths if required
 
 ---
 
@@ -74,81 +76,54 @@ pip install gdown
 
 ---
 
-## Training
+## Usage
 
-Open and run:
+### Training
 
-```text
-botlab_assignment.ipynb
-```
+Open and run `botlab_assignment.ipynb`.
 
-Training configuration:
+| Parameter | Value |
+|-----------|-------|
+| Base model | YOLOv8n |
+| Epochs | 30 |
+| Batch size | 16 |
+| Image size | 640 |
+| Hardware | NVIDIA T4 GPU (Google Colab) |
 
-* Base model: YOLOv8n
-* Epochs: 30
-* Batch size: 16
-* Image size: 640
-* Hardware: NVIDIA T4 GPU (Google Colab)
+### Detection and Tracking
 
----
-
-## Detection and Tracking
-
-Open and run:
-
-```text
-botlab_sahi.ipynb
-```
-
-Pipeline:
-
-```text
-Frames
-  ↓
-YOLOv8n
-  ↓
-SAHI
-  ↓
-Camera Motion Compensation
-  ↓
-ByteTrack
-  ↓
-Tracked Output Video
-```
+Open and run `botlab_sahi.ipynb`.
 
 ---
 
 ## Results
 
-| Metric                    | Value         |
-| ------------------------- | ------------- |
-| Model Size                | 6.2 MB        |
-| Average FPS (with CMC)    | 3.41          |
-| Average FPS (without CMC) | 3.86          |
-| Total Frames Processed    | 464           |
-| Hardware                  | NVIDIA T4 GPU |
+| Metric | Value |
+|--------|-------|
+| Model Size | 6.2 MB |
+| Average FPS (with CMC) | 3.41 |
+| Average FPS (without CMC) | 3.86 |
+| Total Frames Processed | 464 |
+| Hardware | NVIDIA T4 GPU |
 
 ---
-## Detection + Tracking
 
-![Tracking Result](sample_output/output_frame (2).jpg)
+## Sample Output
+
+![Tracking Result](sample_output/tracking_result_image.png)
+
+---
 
 ## Report
 
-Detailed implementation details, design decisions, experiments, and discussion are available in:
-
-```text
-report/report_arial_guardian.pdf
-```
+Detailed implementation details, design decisions, experiments, and discussion:
+report/Aerial_Guardian_Report.pdf
 
 ---
 
 ## Future Improvements
 
-* Improve handling of heavy occlusions
-* Re-train using improved validation splits
-* TensorRT optimization for NVIDIA Jetson deployment
-* Better support for top-down drone viewpoints
-
-```
-```
+- [ ] Improve handling of heavy occlusions
+- [ ] Re-train using improved validation splits
+- [ ] TensorRT optimization for NVIDIA Jetson deployment
+- [ ] Better support for top-down drone viewpoints
