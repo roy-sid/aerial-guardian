@@ -111,7 +111,12 @@ Open and run `botlab_sahi.ipynb`.
 ## Sample Output
 
 ![Tracking Result](sample_output/tracking_result_image.png)
+*Example output showing person detections, track IDs and trajectory tails.*
+---
 
+### Output Videos
+
+[Download Tracking Video ](sample_output/tracking_result.mp4)
 ---
 
 ## Report
@@ -126,4 +131,4 @@ report/Aerial_Guardian_Report.pdf
 - [ ] Improve handling of heavy occlusions
 - [ ] Re-train using improved validation splits
 - [ ] TensorRT optimization for NVIDIA Jetson deployment
-- [ ] Better support for top-down drone viewpoints
+- [ ] Better support for top-down drone viewpoint.
