@@ -151,7 +151,7 @@ SAHI significantly improved detection of small distant pedestrians, but increase
 ## Report
 
 Detailed implementation details, design decisions, experiments, and discussion:
-[View Report](report/aerial_guardian_Report.pdf)
+[View Report](report/aerial_guardian_report.pdf)
 
 ---
 
