@@ -1,4 +1,4 @@
-# 🛸 The Aerial Guardian
+# The Aerial Guardian
 ### Drone-Based Multi-Person Detection and Tracking
 
 **Author:** Siddhant Roy  
